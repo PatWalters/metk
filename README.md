@@ -1,5 +1,5 @@
 # metk
-####Model Evaluation Toolkit
+#### Model Evaluation Toolkit
 
 
 In metk, I've collected a set of routines for evaluating predictive models. 
@@ -31,7 +31,7 @@ kcal/mol, use that plot.
 Ultimately, the plan is to implement a number of other methods for model 
 evaluation including those described in papers by Anthony Nicholls.  
 
-####Usage
+#### Usage
 
 This relase of metk contains a rudimentary command-line interface. More options 
 will be added in time. 
@@ -45,7 +45,7 @@ Usage: metk.py --in INFILE_NAME --prefix OUTFILE_PREFIX [--units UNIT_NAME] [--e
 --example                show example command lines
 ```
 
-####Installation
+#### Installation
 
 The metk toolkit was written in Python 3.  Seriously people, it's been 9 years
 why are you still using 2.7?  
