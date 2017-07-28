@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+from __future__ import print_function
 import sys
 import numpy as np
 import pandas as pd
@@ -22,7 +24,7 @@ def ic50_histogram(df, ax, bins=None):
     if bins is None:
         bins = [0, 5, 10, 15]
     counts, hist_bins = np.histogram(np.clip(df['Error'], bins[0], bins[-1]), bins)
-    counts = counts / sum(counts)
+    counts = counts / float(sum(counts))
     ax.bar([1, 2, 3], counts, alpha=0.5, edgecolor="black")
     ax.set_xticks([1, 2, 3])
     ax.set_xticklabels(("<5", "5-10", ">10"))
@@ -42,11 +44,11 @@ def kcal_histogram(df, ax, bins=None):
     if bins is None:
         bins = [0, 1, 2, 3]
     counts, hist_bins = np.histogram(np.clip(df['Error'], bins[0], bins[-1]), bins)
-    counts = counts / sum(counts)
+    counts = counts / float(sum(counts))
     ax.bar([1, 2, 3], counts, alpha=0.5, edgecolor="black")
     ax.set_xticks([1, 2, 3])
     ax.set_xticklabels(("<1", "1-2", ">2"))
-    ax.set_xlabel("ΔG Error (kcal/mol)")
+    ax.set_xlabel(r'$\Delta$G Error (kcal/mol)')
     ax.set_ylabel("Normalized Count")
 
 
@@ -127,8 +129,8 @@ def kcal_plot(df, ax, axis_range=None):
     df['Error'] = np.abs(df['Exp'] - df['Pred'])
     df['Error_Bin'] = [pt_color[x] for x in np.digitize(df['Error'], [1, 2])]
     ax.axis(axis_range)
-    ax.set_xlabel("Experimental ΔG (kcal/mol)")
-    ax.set_ylabel("Predicted ΔG (kcal/mol)")
+    ax.set_xlabel(r'Experimental $\Delta$G (kcal/mol)')
+    ax.set_ylabel(r'Predicted $\Delta$G (kcal/mol)')
     ax.scatter(df['Exp'], df['Pred'], s=100, c=df['Error_Bin'], alpha=0.5, edgecolors="black")
     # y = x
     ax.plot([0, -100], [0, -100], linewidth=2, color='black')

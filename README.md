@@ -5,7 +5,9 @@
 In metk, I've collected a set of routines for evaluating predictive models. 
 I put a lot of this code together when I was doing the evaluation for the 
 [TDT](http://www.teach-discover-treat.org/) and [D3R](https://drugdesigndata.org/)
-projects.  I'm releasing this project as a way for the community to collaborate a
+projects, as well as 
+[a book chapter I wrote in 2013](http://onlinelibrary.wiley.com/doi/10.1002/9781118742785.ch1/summary).
+ I'm releasing this project as a way for the community to collaborate
 and (hopefully) agree on best practices for model evaluation. Most of the 
 initial release is oriented toward the evaluation of free energy calculations. 
 
@@ -50,9 +52,39 @@ Usage: metk.py --in INFILE_NAME --prefix OUTFILE_PREFIX [--units UNIT_NAME] [--e
 
 #### Installation
 
-The metk toolkit was written in Python 3.  Seriously people, it's been 9 years
-why are you still using 2.7?  
+The metk toolkit works under both Python 2.7 and Python 3.6.  Seriously though people, it's been 9 years
+why are you still using 2.7?  Installation is relatively painless.
 
+1. Install the dependencies, you can do this with pip 
+```
+pip install numpy pandas matplotlib scipy docopt
+```
+2. Get the code from github.  You can either download and unpack the zip file
+or just clone the repository. 
+```
+git clone https://github.com/PatWalters/metk.git
+```
+3. There's one more trick to make the plots work with matplotlib.  When pip installed
+matplotlib, it created a directory under your home directory called .matplotlib.  Create 
+a file in this directory called matplotlibrc and put this line in that file. 
+
+```
+backend: TkAgg
+```
+4. At this point you should be all set.  The main script is metk.py.  The other Python 
+files need to either be in the same directory or in your PYTHONPATH.  You can 
+then run the script with this command. 
+```
+python metk.py
+```
+If you're running under Linux or OS-X and you hate typing "python" all the time 
+(I know I do) you can do 
+```
+chmod +x metk.py
+./metk.py 
+```
+
+Please don't hesitate to let me know if you run into problems or have additions or improvements.
 
 Pat Walters - July 2017
 

@@ -8,13 +8,12 @@
 --example                show example command lines
 """
 
+from __future__ import print_function
 from docopt import docopt
 from metk_report import metk_report
 from metk_plots import draw_plots
 import pandas as pd
-from io import StringIO
 
-of_string = StringIO()
 
 do_input = docopt(__doc__)
 infile_name = do_input.get("--in")
@@ -25,13 +24,10 @@ pdf_file_name = prefix + ".pdf"
 report_file_name = prefix + ".txt"
 
 df = pd.read_csv(infile_name)
-metk_report(df, of_string)
+report_list = metk_report(df)
 draw_plots(df, pdf_file_name, units)
-report_str = of_string.getvalue()
-print(report_str)
-of_string.close()
+print("\n".join(report_list))
 report_file = open(report_file_name, "w")
-print(report_str, file=report_file)
-report_file.close()
+print("\n".join(report_list), file=report_file)
 print("Report written to %s" % report_file_name)
 print("Plots written to %s" % pdf_file_name)
