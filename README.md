@@ -16,6 +16,9 @@ routines to calculate
 * Pearson correlation coefficient (with confidence limits)
 * Spearman rank correlation (rho) (still need to add confidence limits)
 * Kendall tau (still need to add confience limits) 
+* Maximum possible correlation given a specific experimental error.  This is
+based on on a 2009 paper by 
+[Brown, Muchmore and Hajduk](http://www.sciencedirect.com/science/article/pii/S1359644609000403)
 
 The toolkit also includes code to generate a few diagnositc plots that I
 find helpful when looking at model performance
