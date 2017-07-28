@@ -51,7 +51,6 @@ The metk toolkit was written in Python 3.  Seriously people, it's been 9 years
 why are you still using 2.7?  
 
 
-
 Pat Walters - July 2017
 
 
