@@ -7,7 +7,7 @@ I put a lot of this code together when I was doing the evaluation for the
 [TDT](http://www.teach-discover-treat.org/) and [D3R](https://drugdesigndata.org/)
 projects.  I'm releasing this project as a way for the community to collaborate a
 and (hopefully) agree on best practices for model evaluation. Most of the 
-initial release is oriented gittoward the evaluation of free energy calculations. 
+initial release is oriented toward the evaluation of free energy calculations. 
 
 This is just a start and I plan to add a lot more.  Currently, there are 
 routines to calculate 
