@@ -8,6 +8,12 @@ from scipy.stats import pearsonr, kendalltau, spearmanr
 
 
 def metk_report(df_kcal, outfile=sys.stdout):
+    """
+    Generate a report
+    :param df_kcal: input dataframe, activity should be in kcal/mol
+    :param outfile: output file for the report
+    :return: None
+    """
     N = df_kcal.shape[0]
     pred = df_kcal['Pred']
     expr = df_kcal['Exp']
@@ -21,7 +27,7 @@ def metk_report(df_kcal, outfile=sys.stdout):
     print("N = %d" % N, file=outfile)
     print("RMSE = %.2f kcal/mol" % rms_val, file=outfile)
     print("MAE  = %.2f kcal/mol" % mae_val, file=outfile)
-    print("Max possible correlation = %.2f" % max_correlation)
+    print("Max possible correlation = %.2f" % max_correlation,file=outfile)
     print("Pearson R^2 = %0.2f  95%%CI = %.2f %.2f" % tuple(pearson_vals), file=outfile)
     print("Spearman rho = %0.2f" % spearman_r, file=outfile)
     print("Kendall tau = %0.2f" % kendall_t, file=outfile)

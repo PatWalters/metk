@@ -11,6 +11,13 @@ from metk_util import kcal_to_ki_df, check_dataframe
 
 
 def ic50_histogram(df, ax, bins=None):
+    """
+    Generate a histogram of the IC50 error in folds
+    :param df: input dataframe
+    :param ax: matplotlib axis
+    :param bins:  bins to use (currently <5 kcal, 5-10 kcal, >10 kcal
+    :return: None
+    """
     add_ic50_error(df)
     if bins is None:
         bins = [0, 5, 10, 15]
@@ -24,6 +31,13 @@ def ic50_histogram(df, ax, bins=None):
 
 
 def kcal_histogram(df, ax, bins=None):
+    """
+    Generate a histogram of the error in kcal/mol
+    :param df: input dataframe
+    :param ax: matplotlib axis
+    :param bins: bins to use (currently "<1 kcal", "1-2 kcal", ">2 kcal")
+    :return:
+    """
     add_kcal_error(df)
     if bins is None:
         bins = [0, 1, 2, 3]
@@ -37,6 +51,12 @@ def kcal_histogram(df, ax, bins=None):
 
 
 def add_ic50_error(df, bins=None):
+    """
+    Add columns to a dataframe showing absolute and binned err
+    :param df: input dataframe
+    :param bins: bins to use (currently <5 kcal, 5-10 kcal, >10 kcal
+    :return:
+    """
     if bins is None:
         bins = [5, 10]
     pt_color = ['green', 'yellow', 'red']
@@ -45,6 +65,12 @@ def add_ic50_error(df, bins=None):
 
 
 def add_kcal_error(df, bins=None):
+    """
+    Add columns to a dataframe showing absolute and binned err
+    :param df: input dataframe
+    :param bins: bins to use (currently "<1 kcal", "1-2 kcal", ">2 kcal")
+    :return: None
+    """
     if bins is None:
         bins = [1, 2]
     pt_color = ['green', 'yellow', 'red']
@@ -53,6 +79,14 @@ def add_kcal_error(df, bins=None):
 
 
 def ic50_plot(df, ax, axis_range=None, units="uM"):
+    """
+    Draw a scatterplot of experimental vs predicted IC50
+    :param df: input dataframe
+    :param ax: matplotlib axis
+    :param axis_range: range for axes [minX, maxY, minY, maxY
+    :param units: units for IC50 plot (currently uM or nM)
+    :return: None
+    """
     if axis_range is None:
         axis_range = np.array([0.001, 100, 0.0001, 100])
     if units == "nM":
@@ -80,6 +114,13 @@ def ic50_plot(df, ax, axis_range=None, units="uM"):
 
 
 def kcal_plot(df, ax, axis_range=None):
+    """
+    Draw a scatterplot of experimental vs predicted Ki or IC50
+    :param df: input dataframe
+    :param ax: matplotlib axis
+    :param axis_range: range for axes [minX, maxY, minY, maxY]
+    :return: None
+    """
     if axis_range is None:
         axis_range = [-12, -6, -12, -6]
     pt_color = ['green', 'yellow', 'red']
@@ -102,6 +143,13 @@ def kcal_plot(df, ax, axis_range=None):
 
 
 def draw_plots(df_kcal, pdf_file_name, units='uM'):
+    """
+    Draw scatter plots and histograms showing agreement between experimental and predicted activity
+    :param df_kcal: input dataframe, data is in kcal/mol
+    :param pdf_file_name: output file for plot
+    :param units: units to use for the plots (currently uM or nM)
+    :return:
+    """
     add_kcal_error(df_kcal)
     f_kcal, ax_kcal = plt.subplots(2, figsize=(7, 7))
     ax_kcal[0].set_title("N = %d" % df_kcal.shape[0])

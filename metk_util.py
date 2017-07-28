@@ -115,6 +115,11 @@ def kcal_to_ki_df(df, units="uM"):
 
 
 def check_dataframe(df):
+    """
+    Check a dataframe to ensure that we have columns called "Pred" and "Exp"
+    :param df: input dataframe
+    :return: no return value, exits on error
+    """
     cols = df.columns
     if "Pred" not in cols:
         print('Input Error: Your input file does not have a column named "Pred"',file=sys.stderr)
@@ -125,6 +130,10 @@ def check_dataframe(df):
 
 
 def test():
+    """
+    Stupid test function
+    :return:
+    """
     df = pd.read_csv(sys.argv[1])
     n_row, n_col = df.shape
     pred = np.log10(df['Pred'])
