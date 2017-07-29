@@ -24,7 +24,7 @@ def metk_report(df_kcal):
     pearson_vals = [x ** 2 for x in [pearson_r] + list(pearson_confidence(pearson_r, N))]
     spearman_r, spearman_p = spearmanr(pred, expr)
     kendall_t, kendall_p = kendalltau(pred, expr)
-    max_correlation = max_possible_correlation([log10(kcal_to_ki(x)) for x in df_kcal['Exp']])
+    max_correlation = max_possible_correlation([log10(kcal_to_ki(x, "M")) for x in df_kcal['Exp']])
     report = []
     report.append("N = %d" % N)
     report.append("RMSE = %.2f kcal/mol" % rms_val)

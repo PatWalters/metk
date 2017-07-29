@@ -35,7 +35,7 @@ def get_unit_multiplier(units):
     :param: units: units
     :return: unit dictionary
     """
-    multiplier_dict = {"uM": 1e-6, "nM": 1e-9}
+    multiplier_dict = {"M": 1, "mM": 1e-3, "uM": 1e-6, "nM": 1e-9}
     try:
         multiplier = multiplier_dict[units]
         return multiplier
@@ -83,11 +83,11 @@ def pearson_confidence(r, num, interval=0.95):
     return lower, upper
 
 
-def max_possible_correlation(vals, error=0.3, method=pearsonr, cycles=1000):
+def max_possible_correlation(vals, error=1/3.0, method=pearsonr, cycles=1000):
     """
     Calculate the maximum possible correlation given a particular experimental error
     Based on Brown, Muchmore, Hajduk http://www.sciencedirect.com/science/article/pii/S1359644609000403
-    :param vals: experimental values
+    :param vals: experimental values (should be on a log scale)
     :param error: experimental error
     :param method: method for calculating the correlation, must take 2 lists and return correlation and p_value
     :param cycles: number of random cycles
@@ -97,7 +97,7 @@ def max_possible_correlation(vals, error=0.3, method=pearsonr, cycles=1000):
     for i in range(0, cycles):
         noisy_vals = []
         for val in vals:
-            noisy_vals.append(val + np.random.normal(0, error) * val)
+            noisy_vals.append(val + np.random.normal(0, error))
         cor_list.append(method(vals, noisy_vals)[0])
     return np.mean(cor_list)
 
