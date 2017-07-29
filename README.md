@@ -56,8 +56,7 @@ Usage: metk.py --in INFILE_NAME --prefix OUTFILE_PREFIX [--units UNIT_NAME] [--e
 
 #### Installation
 
-The metk toolkit works under both Python 2.7 and Python 3.6.  Seriously though people, it's been 9 years
-why are you still using 2.7?  Installation is relatively painless.
+The metk toolkit works under both Python 2.7 and Python 3.6. Installation is relatively painless.
 
 1. Install the dependencies, you can do this with pip
 ```
