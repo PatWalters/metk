@@ -87,6 +87,9 @@ chmod +x metk.py
 ./metk.py
 ```
 
+#### A Few Notes
+[I use tabs](https://www.youtube.com/watch?v=SsoOG6ZeyUI)
+
 Please don't hesitate to let me know if you run into problems or have additions or improvements.
 
 Pat Walters - July 2017
