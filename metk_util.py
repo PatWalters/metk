@@ -60,10 +60,10 @@ def kcal_to_ki(kcal, units="uM"):
     Convert a binding energy in kcal to a Ki or IC50 value
     :param kcal: binding energy in kcal/mol
     :param units: units for the return value
-    :return: 
+    :return: binding energy as Ki or IC50
     """
     multiplier = get_unit_multiplier(units)
-    return math.exp(kcal/0.5961)/multiplier
+    return math.exp(kcal / 0.5961) / multiplier
 
 
 def pearson_confidence(r, num, interval=0.95):
@@ -83,7 +83,7 @@ def pearson_confidence(r, num, interval=0.95):
     return lower, upper
 
 
-def max_possible_correlation(vals, error=1/3.0, method=pearsonr, cycles=1000):
+def max_possible_correlation(vals, error=1 / 3.0, method=pearsonr, cycles=1000):
     """
     Calculate the maximum possible correlation given a particular experimental error
     Based on Brown, Muchmore, Hajduk http://www.sciencedirect.com/science/article/pii/S1359644609000403
@@ -106,12 +106,25 @@ def kcal_to_ki_df(df, units="uM"):
     """
     Convert a data frame with values in kcal/mol to a dataframe with Ki values
     :param df: input dataframe with units of kcal/mol
-    :param units: units to use (passed to ki_to_kcal)
+    :param units: units to use (passed to kcal_to_ki)
     :return: new dataframe with Pred and Exp expressed as a Ki (or IC50)
     """
     new_df = pd.DataFrame(df)
-    new_df['Pred'] = [kcal_to_ki(x,units) for x in df['Pred']]
-    new_df['Exp'] = [kcal_to_ki(x,units) for x in df['Exp']]
+    new_df['Pred'] = [kcal_to_ki(x, units) for x in df['Pred']]
+    new_df['Exp'] = [kcal_to_ki(x, units) for x in df['Exp']]
+    return new_df
+
+
+def ki_to_kcal_df(df, units="uM"):
+    """
+    Convert a data frame with values as IC50 or Ki to a dataframe with values in kcal/mol
+    :param df: input dataframe with data expressed as Ki or Ic50
+    :param units: units to use (passed to ki_to_kcal)
+    :return: new dataframe with Pred and Exp expressed in kcal/mol
+    """
+    new_df = pd.DataFrame(df)
+    new_df['Pred'] = [ki_to_kcal(x, units) for x in df['Pred']]
+    new_df['Exp'] = [ki_to_kcal(x, units) for x in df['Exp']]
     return new_df
 
 
@@ -123,7 +136,7 @@ def check_dataframe(df):
     """
     cols = df.columns
     if "Pred" not in cols:
-        print('Input Error: Your input file does not have a column named "Pred"',file=sys.stderr)
+        print('Input Error: Your input file does not have a column named "Pred"', file=sys.stderr)
         sys.exit(0)
     if "Exp" not in cols:
         print('Input Error: Your input file does not have a column named "Exp"', file=sys.stderr)
@@ -139,9 +152,9 @@ def test():
     n_row, n_col = df.shape
     pred = np.log10(df['Pred'])
     expr = np.log10(df['Exp'])
-#   for idx,(e,p) in enumerate(zip(pred,expr),1):
-#        print("MOL%03d" % idx,"%0.3f %0.3f" % (kcal_to_ki(e),kcal_to_ki(p)))
-    print("rmse = ",rmse(pred,expr))
+    #   for idx,(e,p) in enumerate(zip(pred,expr),1):
+    #        print("MOL%03d" % idx,"%0.3f %0.3f" % (kcal_to_ki(e),kcal_to_ki(p)))
+    print("rmse = ", rmse(pred, expr))
     pearson_p, pearson_cor = pearsonr(pred, expr)
     print(pearson_confidence(pearson_cor, n_row))
     print(max_possible_correlation(expr))

@@ -12,6 +12,7 @@ from __future__ import print_function
 from docopt import docopt
 from metk_report import metk_report
 from metk_plots import draw_plots
+from metk_util import ki_to_kcal_df
 import pandas as pd
 
 
@@ -24,6 +25,8 @@ pdf_file_name = prefix + ".pdf"
 report_file_name = prefix + ".txt"
 
 df = pd.read_csv(infile_name)
+df = ki_to_kcal_df(df)
+
 report_list = metk_report(df)
 draw_plots(df, pdf_file_name, units)
 print("\n".join(report_list))
