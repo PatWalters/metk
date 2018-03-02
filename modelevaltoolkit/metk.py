@@ -25,7 +25,7 @@ pdf_file_name = prefix + ".pdf"
 report_file_name = prefix + ".txt"
 
 df = pd.read_csv(infile_name)
-df = ki_to_kcal_df(df)
+#df = ki_to_kcal_df(df)
 
 report_list = metk_report(df)
 draw_plots(df, pdf_file_name, units)
