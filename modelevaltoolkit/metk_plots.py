@@ -10,7 +10,7 @@ import matplotlib.ticker as ticker
 from matplotlib.backends.backend_pdf import PdfPages
 import warnings
 from metk_util import kcal_to_ki_df, check_dataframe
-
+import math
 
 def ic50_histogram(df, ax, bins=None):
     """
@@ -155,7 +155,13 @@ def draw_plots(df_kcal, pdf_file_name, units='uM'):
     add_kcal_error(df_kcal)
     f_kcal, ax_kcal = plt.subplots(2, figsize=(7, 7))
     ax_kcal[0].set_title("N = %d" % df_kcal.shape[0])
-    kcal_plot(df_kcal, ax_kcal[0])
+    
+    minx = int( min(df_kcal["Exp"] ) - 1 )
+    maxx = int( max(df_kcal["Exp"] ) + 1 )
+    miny = int( min(df_kcal["Pred"]) - 1 )
+    maxy = int( max(df_kcal["Pred"]) + 1 )
+    
+    kcal_plot(df_kcal, ax_kcal[0], axis_range=[minx, maxx, miny, maxy])
     kcal_histogram(df_kcal, ax_kcal[1])
     pdf_pages = PdfPages(pdf_file_name)
     with warnings.catch_warnings():
@@ -166,12 +172,17 @@ def draw_plots(df_kcal, pdf_file_name, units='uM'):
     df_ic50 = kcal_to_ki_df(df_kcal, units)
     add_ic50_error(df_ic50)
     f_ic50, ax_ic50 = plt.subplots(2, figsize=(7, 7))
-    ic50_plot(df_ic50, ax_ic50[0], units=units)
+    
+    minx = 10**( math.log10(min(df_ic50["Exp"] )) - 1 )
+    maxx = 10**( math.log10(max(df_ic50["Exp"] )) + 1 )
+    miny = 10**( math.log10(min(df_ic50["Pred"])) - 1 )
+    maxy = 10**( math.log10(max(df_ic50["Pred"])) + 1 )
+    
+    ic50_plot(df_ic50, ax_ic50[0], axis_range=[minx, maxx, miny, maxy], units=units)
     ic50_histogram(df_ic50, ax_ic50[1])
     pdf_pages.savefig(f_ic50.get_figure())
 
     pdf_pages.close()
-
 
 def generate_pdf(figure_list, pdf_file_name):
     pdf_pages = PdfPages(pdf_file_name)
